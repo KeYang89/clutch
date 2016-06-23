@@ -1,0 +1,15 @@
+<?php 
+    /**
+    * Clutch extension frontend header management
+    */
+    
+    if (Mage::getStoreConfig('Snap/loyalty_settings/load_jquery_force_select')) {
+        echo sprintf('<script type="text/javascript" src="%s"></script>', addslashes(Mage::getBaseUrl('js')) . 'snap/jquery-1.10.2.min.js');
+        echo sprintf('<script type="text/javascript" src="%s"></script>', addslashes(Mage::getBaseUrl('js')) . 'snap/jquery.noconflict.js');
+    }
+    
+?>
+
+<script type="text/javascript" src="<?php echo addslashes(Mage::getBaseUrl('js')) . 'snap/clutch.js'?>"></script>
+<script type="text/javascript" src="<?php echo addslashes(Mage::getBaseUrl('js')) . 'snap/jquery.knob.js'?>"></script>
+<script type="text/javascript" src="<?php echo addslashes(Mage::getBaseUrl('js')) . 'snap/raty/jquery.raty.js'?>"></script>

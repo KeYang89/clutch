@@ -1,0 +1,141 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+
+    <default>
+        <reference name="head">
+            <action method="addItem"><type>skin_css</type><name>css/giftcard.css</name></action>
+            <block type="core/template" name="clutch_js_css" as="clutch_js_css" template="snap/clutch_head.phtml" />
+        </reference>
+    </default>
+
+    <snap_card_index_checkbalance>
+        <label>Balance Checker</label>
+        <reference name="head">
+            <action method="addItem"><type>skin_js</type><name>js/checkbalance.js</name></action>
+        </reference>
+        <reference name="content">
+            <block type="snap_card/BalanceChecker" name="files" template="snap/balancechecker.phtml" />
+        </reference>
+    </snap_card_index_checkbalance>
+
+    <checkout_cart_index translate="label">
+        <reference name="head">
+            <action method="addItem"><type>skin_js</type><name>js/giftcard.js</name></action>
+        </reference>
+        <reference name="checkout.cart.coupon">
+            <action method="setTemplate"><template>snap/block_overwrite.phtml</template></action>
+            <block type="core/text_list" name="snap.card.checkout.clutch.parts" translate="label">
+                <label>Clutch cards, loyalty related parts</label>
+                <block type="checkout/cart_coupon" name="checkout.cart.coupon.modify" template="checkout/cart/coupon.phtml"/>
+                <block type="snap_card/checkout_cart_coupon" name="snap.card.checkout.cart.coupon" template="snap/checkout/cart/coupon.phtml" />
+                <block type="snap_card/checkout_cart_loyalty" name="snap.card.checkout.cart.loyalty" template="snap/checkout/cart/loyalty.phtml" />
+                <!--<block type="snap_card/checkout_cart_loyalty_summary" name="snap.card.checkout.cart.loyalty.summary" after="totals" template="snap/checkout/cart/loyalty.phtml"/>-->
+            </block>            
+        </reference>
+
+        <reference name="checkout.cart.totals">
+            <action method="setTemplate"><template>snap/block_overwrite.phtml</template></action>
+            <block type="checkout/cart_totals" name="checkout.cart.totals.modify" template="checkout/cart/totals.phtml"/>
+            <block type="snap_card/checkout_cart_loyalty_summary" name="snap.card.checkout.cart.loyalty.summary" template="snap/checkout/cart/loyalty.phtml" before="totals" />
+        </reference>
+        
+    </checkout_cart_index>
+
+    <checkout_onepage_index>
+        <reference name="head">
+            <action method="addItem"><type>skin_js</type><name>js/giftcard.js</name></action>
+        </reference>
+        <reference name="footer">
+            <block type="core/template" name="test" template="snap/urlHelper.phtml"></block>
+        </reference>
+        <reference name="checkout.onepage.billing">
+            <block type="core/text_list" name="form.additional.info">
+                <block type="snap_card/register" name="snap.card.register" template="snap/registerOP.phtml" />
+            </block>
+        </reference>
+    </checkout_onepage_index>
+
+    <checkout_onepage_paymentmethod>
+        <remove name="right"/>
+        <remove name="left"/>
+        <block type="snap_card/checkout_cart_coupon" name="root" output="toHtml" template="snap/checkout/methods.phtml">
+            <block type="checkout/onepage_payment_methods" name="onepage.payment.methods" as="onepage.payment.methods" output="toHtml" template="checkout/onepage/payment/methods.phtml">
+                <action method="setMethodFormTemplate"><method>purchaseorder</method><template>payment/form/purchaseorder.phtml</template></action>
+            </block>
+        </block>
+    </checkout_onepage_paymentmethod>
+    
+    <checkout_onepage_success>
+        <reference name="content">
+            <block type="snap_card/checkout_success" name="snap.card.checkout.success" template="snap/checkout/success.phtml" />
+        </reference>
+    </checkout_onepage_success>
+    
+    <checkout_multishipping_success>
+        <reference name="content">
+            <block type="snap_card/checkout_success" name="snap.card.checkout.success" template="snap/checkout/success.phtml" />
+        </reference>
+    </checkout_multishipping_success>
+    
+
+    <!--Totals-->
+    <sales_order_view>
+        <reference name="order_totals">
+            <block type="snap_card/sales_order_card" name="giftcards" template="snap/order/card.phtml" />
+        </reference>
+    </sales_order_view>
+    <sales_order_print>
+        <reference name="order_totals">
+            <block type="snap_card/sales_order_card" name="giftcards" template="snap/order/card.phtml" after="-"/>
+        </reference>
+    </sales_order_print>
+    <sales_email_order_items>
+        <reference name="order_totals">
+            <block type="snap_card/sales_order_card" name="giftcards" template="snap/order/card.phtml" after="-"/>
+        </reference>
+    </sales_email_order_items>
+
+    <sales_order_invoice>
+        <reference name="invoice_totals">
+            <block type="snap_card/sales_order_card" name="giftcards" template="snap/order/card.phtml" />
+        </reference>
+    </sales_order_invoice>
+    <sales_order_printinvoice>
+        <reference name="invoice_totals">
+            <block type="snap_card/sales_order_card" name="giftcards" template="snap/order/card.phtml" />
+        </reference>
+    </sales_order_printinvoice>
+    <sales_email_order_invoice_items>
+        <reference name="invoice_totals">
+            <block type="snap_card/sales_order_card" name="giftcards" template="snap/order/card.phtml" />
+        </reference>
+    </sales_email_order_invoice_items>
+
+    <sales_order_creditmemo>
+        <reference name="creditmemo_totals">
+            <block type="snap_card/sales_order_card" name="giftcards" template="snap/order/card.phtml" />
+        </reference>
+    </sales_order_creditmemo>
+    <sales_order_printcreditmemo>
+        <reference name="creditmemo_totals">
+            <block type="snap_card/sales_order_card" name="giftcards" template="snap/order/card.phtml" />
+        </reference>
+    </sales_order_printcreditmemo>
+    <sales_email_order_creditmemo_items>
+        <reference name="creditmemo_totals">
+            <block type="snap_card/sales_order_card" name="giftcards" template="snap/order/card.phtml" />
+        </reference>
+    </sales_email_order_creditmemo_items>
+    <!--/Totals-->
+    
+    
+    <!-- Register Related Section, Enrollment setup -->
+    <customer_account_create>
+        <reference name="customer_form_register">
+            <block type="core/text_list" name="form.additional.info">
+                <block type="snap_card/register" name="snap.card.register" template="snap/register.phtml" />
+            </block>
+        </reference>
+    </customer_account_create>
+
+</layout>

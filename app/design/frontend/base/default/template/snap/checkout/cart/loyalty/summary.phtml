@@ -1,0 +1,133 @@
+<?php
+    //This will be set in block
+    $_configData = $this->getResponse();
+    $_loyaltyProgramConfig = Mage::helper('snap_card')->getLoyaltyProgramConfig();
+    
+    
+    //Widget content style
+    $_containerStyle = ''; // Widget container style
+    $_fontStyle = ''; // Widget font style
+    $_digitalStyle = ''; // Widget digital style
+    $_buttonStyle = ''; //Enrollment button style
+    $_graphBgColor = '#66EE66'; //Enrollment Graph style
+    if ($_configData['width'] != '') {
+        $_containerStyle .= sprintf('width:%s;', $_configData['width']);
+    }
+    if ($_configData['height'] != '') {
+        $_containerStyle .= sprintf('height:%s;', $_configData['height']);
+    }
+    if ($_configData['background_color'] != '') {
+        $_containerStyle .= sprintf('background-color:%s;', $_configData['background_color']);
+    }
+    if ($_configData['font_face'] != '') {
+        $_containerStyle .= sprintf('font-family:%s;', $_configData['font_face']);
+        $_fontStyle .= sprintf('font-family:%s;', $_configData['font_face']);
+    }
+    if ($_configData['font_color'] != '') {
+        $_containerStyle .= sprintf('color:%s;', $_configData['font_color']);
+        $_fontStyle .= sprintf('color:%s;', $_configData['font_color']);
+    }
+    if ($_configData['dial_color'] != '') {
+        $_digitalStyle .= sprintf('color:%s;', $_configData['dial_color']);
+    }
+    
+    if ($_configData['button_bg_color'] != '') {
+        $_buttonStyle .= sprintf('background-color:%s;', $_configData['button_bg_color']);
+    }
+    if ($_configData['button_font_color'] != '') {
+        $_buttonStyle .= sprintf('color:%s;', $_configData['button_font_color']);
+    }
+    if ($_configData['graph_color'] != '') {
+        $_graphBgColor = $_configData['graph_color'];
+    }
+    
+    
+    //Referrer URL
+    $_loginRedirectUrl = Mage::getUrl('customer/account/login', array('referer' => 
+        Mage::helper('core')->urlEncode(Mage::helper('core/url')->getCurrentUrl())
+    ));
+    
+    $_enrollRedirectUrl = Mage::getUrl('clutch/index/enroll', array('referer' => 
+        Mage::helper('core')->urlEncode(Mage::helper('core/url')->getCurrentUrl())
+    ));
+    
+    
+    if ($_loyaltyProgramConfig['type'] == Snap_Card_Model_Giftcard::LOYALTY_PROGRAM_TYPE_POINT) {
+        if ($_configData['widget_type'] == 'not_enrolled') {
+?>
+<?php
+/*
+            <div class="clutch-loyalty-summary" style="<?php echo $_containerStyle;?>">
+                <p class="node-block" style="<?php echo $_fontStyle?>"><strong>Points This Checkout: <span style="float:right"><?php echo (Mage::helper('checkout/cart')->getQuote()->getSubtotal() * $_loyaltyProgramConfig['rate'])?></span></strong></p>
+                <p class="node-block" style="<?php echo $_fontStyle?>">Enroll in our Rewards Program today and earn points for this checkout!</p>
+                <?php if (Mage::helper('customer')->isLoggedIn()) :?>
+                    <!--<p><a href="<?php echo $_enrollRedirectUrl;?>" class="btn-enrollment" style="<?php echo $_buttonStyle;?>">Enroll Me Now!</a></p>-->
+                    <p class="node-block" style="<?php echo $_fontStyle?>"><label><input type="checkbox" data-url="<?php echo $_enrollRedirectUrl;?>" name="enroll_me_now_chk" id="enroll_me_now_chk">&nbsp;<strong>Yes, enroll me now!</strong></label></p>
+                <?php else : ?>
+                    <p style="<?php echo $_fontStyle?>"><a href="<?php echo $_loginRedirectUrl; ?>"> &gt; Sign in to your account and return here to enroll.</a></p>
+                <?php endif;?>
+            </div>
+*/
+?>
+<?php
+        }
+        else {
+            
+            if ($_configData['redeem_amount'] > 0) {
+?>
+                <div class="clutch-loyalty-summary" style="<?php echo $_containerStyle;?>">
+                    <p class="node-block" style="<?php echo $_fontStyle?>"><strong>Reward Credit: <span class="loyalty-redeem-amount" style="float:right;">(<?php echo $this->helper('core')->formatPrice($_configData['redeem_amount'], false);?>)</span></strong></p>
+                    <p class="node-block" style="<?php echo $_fontStyle?>"><strong style="text-transform:uppercase;">Important: </strong> Your reward credit will be processed in the form of refund once your order is confirmed.</p>
+                </div>
+<?php                
+            }
+            else {
+?>
+                <div class="clutch-loyalty-summary" style="<?php echo $_containerStyle;?>">
+                    <p class="node-block" style="<?php echo $_fontStyle?>"><strong>Points This Checkout: <span style="float: right;"><?php echo (Mage::helper('checkout/cart')->getQuote()->getSubtotal() * $_loyaltyProgramConfig['rate'])?></span></strong></p>
+                    <p class="node-block" style="<?php echo $_fontStyle?>">Checkout now and when your purchase is confirmed your points will be issued!</p>
+                </div>
+<?php                
+            }
+        }
+    }
+    else if ($_loyaltyProgramConfig['type'] == Snap_Card_Model_Giftcard::LOYALTY_PROGRAM_TYPE_PUNCH) {
+        if ($_configData['widget_type'] == 'not_enrolled') {
+?>
+<?php
+/*
+            <div class="clutch-loyalty-summary" style="<?php echo $_containerStyle;?>">
+                <p class="node-block" style="<?php echo $_fontStyle?>"><strong>Punches This Checkout: <span style="float:right"><?php echo $_loyaltyProgramConfig['rate'];?></span></strong></p>
+                <p class="node-block" style="<?php echo $_fontStyle?>">Enroll in our Rewards Program today and earn punches for this checkout!</p>
+                <?php if (Mage::helper('customer')->isLoggedIn()) :?>
+                    <!--<p><a href="<?php echo $_enrollRedirectUrl;?>" class="btn-enrollment" style="<?php echo $_buttonStyle;?>">Enroll Me Now!</a></p>-->
+                    <p class="node-block" style="<?php echo $_fontStyle?>"><label><input type="checkbox" data-url="<?php echo $_enrollRedirectUrl;?>" name="enroll_me_now_chk" id="enroll_me_now_chk">&nbsp;<strong>Yes, enroll me now!</strong></label></p>
+                <?php else : ?>
+                    <p style="<?php echo $_fontStyle?>"><a href="<?php echo $_loginRedirectUrl; ?>"> &gt; Sign in to your account and return here to enroll.</a></p>
+                <?php endif;?>
+            </div>
+*/
+?>
+<?php
+        }
+        else {
+            
+            if ($_configData['redeem_amount'] > 0) {
+?>
+                <div class="clutch-loyalty-summary" style="<?php echo $_containerStyle;?>">
+                    <p class="node-block" style="<?php echo $_fontStyle?>"><strong>Reward Credit: <span class="loyalty-redeem-amount" style="float:right;">(<?php echo $this->helper('core')->formatPrice($_configData['redeem_amount'], false);?>)</span></strong></p>
+                    <p class="node-block" style="<?php echo $_fontStyle?>"><strong style="text-transform:uppercase;">Important: </strong> Your reward credit will be processed in the form of refund once your order is confirmed.</p>
+                </div>
+<?php                
+            }
+            else {
+?>
+                <div class="clutch-loyalty-summary" style="<?php echo $_containerStyle;?>">
+                    <p class="node-block" style="<?php echo $_fontStyle?>"><strong>Punches This Checkout: <span style="float: right;"><?php echo $_loyaltyProgramConfig['rate'];?></span></strong></p>
+                    <p class="node-block" style="<?php echo $_fontStyle?>">Checkout now and when your purchase is confirmed your punches will be issued!</p>
+                </div>
+<?php                
+            }
+        }
+    }
+?>

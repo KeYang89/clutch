@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<widgets>
+    <snap_card_loyalty_enroll_balance_checker type="snap_card/loyaltyenroll" translate="name description" module="snap_card">
+        <name>Clutch Loyalty Enroll / Balance Checker</name>
+        <description>Clutch loyalty program enrollment / balance check.</description>
+        <parameters>
+            <name>
+                <label>Name</label>
+                <visible>1</visible>
+                <required>1</required>
+                <type>text</type>
+                <description>The name displayed for this program</description>
+                <value>100%</value>
+            </name>
+            <width>
+                <label>Width</label>
+                <visible>1</visible>
+                <required>1</required>
+                <type>text</type>
+                <description>The exact width in pixels or percent (i.e 500 for pixel, 100% for percent)</description>
+                <value>100%</value>
+            </width>
+            <height>
+                <label>Height</label>
+                <visible>1</visible>
+                <required>1</required>
+                <type>text</type>
+                <value>auto</value>
+                <description>The exact height in pixels (i.e 300 for pixel, auto for default)</description>
+            </height>
+            <background_color>
+                <label>Background Color</label>
+                <validate>color</validate>
+                <visible>1</visible>
+                <required>0</required>
+                <type>snap_card/adminhtml_colorpicker</type>
+                <value>FFFFFF</value>
+                <description>Leave it blank if you want to use site default.</description>
+            </background_color>
+            <font_color>
+                <label>Font Color</label>
+                <visible>1</visible>
+                <required>0</required>
+                <type>snap_card/adminhtml_colorpicker</type>
+                <value>5c5c5c</value>
+                <description>Leave it blank if you want to use site default.</description>
+            </font_color>
+            <font_face>
+                <label>Font Face</label>
+                <visible>1</visible>
+                <required>0</required>
+                <type>text</type>
+                <value>Arial</value>
+                <description>Leave it blank if you want to use site default.</description>
+            </font_face>
+            <button_bg_color>
+                <label>Button Background Color</label>
+                <visible>1</visible>
+                <required>0</required>
+                <type>snap_card/adminhtml_colorpicker</type>
+                <value>458CCC</value>
+                <description>Leave it blank if you want to use site default.</description>
+            </button_bg_color>
+            <button_font_color>
+                <label>Button Font Color</label>
+                <visible>1</visible>
+                <required>0</required>
+                <type>snap_card/adminhtml_colorpicker</type>
+                <value>FFFFFF</value>
+                <description>Leave it blank if you want to use site default.</description>
+            </button_font_color>
+            <dial_color>
+                <label>Dial Color</label>
+                <visible>1</visible>
+                <required>0</required>
+                <type>snap_card/adminhtml_colorpicker</type>
+                <value>BA3A96</value>
+                <description>Leave it blank if you want to use site default.</description>                
+            </dial_color>
+            <graph_color>
+                <label>Graph Color</label>
+                <visible>1</visible>
+                <required>0</required>
+                <type>snap_card/adminhtml_colorpicker</type>
+                <value>1db3f1</value>
+                <description>Leave it blank if you want to use site default.</description>                
+            </graph_color>
+        </parameters>
+    </snap_card_loyalty_enroll_balance_checker>
+</widgets>

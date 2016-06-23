@@ -1,0 +1,165 @@
+<?php
+    //This will be set in block
+    $_configData = $this->getResponse();
+    $_loyaltyProgramConfig = Mage::helper('snap_card')->getLoyaltyProgramConfig();
+    
+    
+    //Widget content style
+    $_containerStyle = ''; // Widget container style
+    $_fontStyle = ''; // Widget font style
+    $_digitalStyle = ''; // Widget digital style
+    $_buttonStyle = ''; //Enrollment button style
+    $_graphBgColor = '#66EE66'; //Enrollment Graph style
+    if ($_configData['width'] != '') {
+        $_containerStyle .= sprintf('width:%s;', $_configData['width']);
+    }
+    if ($_configData['height'] != '') {
+        $_containerStyle .= sprintf('height:%s;', $_configData['height']);
+    }
+    if ($_configData['background_color'] != '') {
+        $_containerStyle .= sprintf('background-color:%s;', $_configData['background_color']);
+    }
+    if ($_configData['font_face'] != '') {
+        $_containerStyle .= sprintf('font-family:%s;', $_configData['font_face']);
+        $_fontStyle .= sprintf('font-family:%s;', $_configData['font_face']);
+    }
+    if ($_configData['font_color'] != '') {
+        $_containerStyle .= sprintf('color:%s;', $_configData['font_color']);
+        $_fontStyle .= sprintf('color:%s;', $_configData['font_color']);
+    }
+    if ($_configData['dial_color'] != '') {
+        $_digitalStyle .= sprintf('color:%s;', $_configData['dial_color']);
+    }
+    
+    if ($_configData['button_bg_color'] != '') {
+        $_buttonStyle .= sprintf('background-color:%s;', $_configData['button_bg_color']);
+    }
+    if ($_configData['button_font_color'] != '') {
+        $_buttonStyle .= sprintf('color:%s;', $_configData['button_font_color']);
+    }
+    if ($_configData['graph_color'] != '') {
+        $_graphBgColor = $_configData['graph_color'];
+    }
+    
+    
+    
+    //Referrer URL
+    $_loginRedirectUrl = Mage::getUrl('customer/account/create', array('enroll' => 1));
+    
+    $_enrollRedirectUrl = Mage::getUrl('clutch/index/enroll');
+    
+    
+    if ($_loyaltyProgramConfig['type'] == Snap_Card_Model_Giftcard::LOYALTY_PROGRAM_TYPE_POINT) {
+
+        if ($_configData['widget_type'] == 'guest') {
+?>
+            <div class="loyalty-success-container" style="<?php echo $_containerStyle;?>">
+                <div class="loyalty-success-box">
+                    <p style="<?php echo $_fontStyle?>"><strong>You could have just earned <span style="<?php echo $_digitalStyle;?>"><?php echo ($_configData['loyalty_subtotal_info'] * $_loyaltyProgramConfig['rate'])?></span> point(s)</strong></p>
+                    <p style="<?php echo $_fontStyle?>"> Join the <?php echo $_configData['store_name']?> Rewards Program and earn rewards every time you make a purchase! </p>
+                    <p style="<?php echo $_fontStyle?>">It's quick, easy and most of all rewarding!</p>
+                    <p style="<?php echo $_fontStyle?>"><a href="<?php echo $_loginRedirectUrl; ?>" class="btn-enrollment" style="<?php echo $_buttonStyle;?>">Enroll Me Now!</a></p>
+                </div>
+            </div>
+<?php 
+        }
+        else if ($_configData['widget_type'] == 'member') {
+            
+            $earnedPoints = 0;
+            if (Snap_Card_Model_Giftcard::BALANCE_TYPE_POINTS == $_configData['loyalty_program_info']['mutation']['type'])
+                $earnedPoints = $_configData['loyalty_program_info']['mutation']['issue_amount'];
+            
+            if ($_configData['loyalty_redeem_amount'] > 0) {
+                //You redeemed
+?>
+                <div class="loyalty-success-container" style="<?php echo $_containerStyle;?>">
+                    <div class="loyalty-success-box">
+                        <p style="<?php echo $_fontStyle?>"><strong>You've just redeemed <span style="<?php echo $_digitalStyle;?>"><?php echo $this->helper('core')->formatPrice($_configData['loyalty_redeem_amount'], false);?></span> in rewards!</strong></p>
+                        <p style="<?php echo $_fontStyle?>"> Once your order has finished processing your reward credit will be issued in the form of a refund. You can expect to see a refund email for the amount of your redemption, as well as this amount credited to your payment source within the next 10 days. </p>
+                    </div>
+                </div>
+<?php
+            }
+            else {
+?>
+                <div class="loyalty-success-container" style="<?php echo $_containerStyle;?>">
+                    <div class="loyalty-success-box">
+                        <p style="<?php echo $_fontStyle?>"><strong>You've earned <span style="<?php echo $_digitalStyle;?>"><?php echo $earnedPoints;?></span> points!</strong></p>
+                        <p style="<?php echo $_fontStyle?>">Thanks for your participation in the <?php echo $_configData['store_name']?> Rewards Program. Come back soon, with every purchase you'll earn more valuable rewards.</p>
+                    </div>
+                </div>
+<?php                
+            }
+        }
+        else {
+?>
+            <div class="loyalty-success-container" style="<?php echo $_containerStyle;?>">
+                <div class="loyalty-success-box">
+                    <p style="<?php echo $_fontStyle?>"><strong>You could have just earned <span style="<?php echo $_digitalStyle;?>"><?php echo ($_configData['loyalty_subtotal_info'] * $_loyaltyProgramConfig['rate'])?></span> point(s)</strong></p>
+                    <p style="<?php echo $_fontStyle?>"> Join the <?php echo $_configData['store_name']?> Rewards Program and earn rewards every time you make a purchase! </p>
+                    <p style="<?php echo $_fontStyle?>">It's quick, easy and most of all rewarding!</p>
+                    <p style="<?php echo $_fontStyle?>"><a href="<?php echo $_enrollRedirectUrl; ?>" class="btn-enrollment" style="<?php echo $_buttonStyle;?>">Enroll Me Now!</a></p>
+                </div>
+            </div>
+<?php        
+        }
+    }
+    else if ($_loyaltyProgramConfig['type'] == Snap_Card_Model_Giftcard::LOYALTY_PROGRAM_TYPE_PUNCH) {
+        
+        if ($_configData['widget_type'] == 'guest') {
+?>
+            <div class="loyalty-success-container" style="<?php echo $_containerStyle;?>">
+                <div class="loyalty-success-box">
+                    <p style="<?php echo $_fontStyle?>"><strong>You could have just earned <span style="<?php echo $_digitalStyle;?>"><?php echo $_loyaltyProgramConfig['rate'];?></span> punch(es).</strong></p>
+                    <p style="<?php echo $_fontStyle?>"> Join the <?php echo $_configData['store_name']?> Rewards Program and earn rewards every time you make a purchase! </p>
+                    <p style="<?php echo $_fontStyle?>">It's quick, easy and most of all rewarding!</p>
+                    <p style="<?php echo $_fontStyle?>"><a href="<?php echo $_loginRedirectUrl; ?>" class="btn-enrollment" style="<?php echo $_buttonStyle;?>">Enroll Me Now!</a></p>
+                </div>
+            </div>
+<?php 
+        }
+        else if ($_configData['widget_type'] == 'member') {
+            
+            $earnedPunches = 0;
+            if (Snap_Card_Model_Giftcard::BALANCE_TYPE_PUNCHES == $_configData['loyalty_program_info']['mutation']['type'])
+                $earnedPunches = $_configData['loyalty_program_info']['mutation']['issue_amount'];
+            
+            if ($_configData['loyalty_redeem_amount'] > 0) {
+                //You redeemed
+?>
+                <div class="loyalty-success-container" style="<?php echo $_containerStyle;?>">
+                    <div class="loyalty-success-box">
+                        <p style="<?php echo $_fontStyle?>"><strong>You've just redeemed <span style="<?php echo $_digitalStyle;?>"><?php echo $this->helper('core')->formatPrice($_configData['loyalty_redeem_amount'], false);?></span> in rewards!</strong></p>
+                        <p style="<?php echo $_fontStyle?>"> Once your order has finished processing your reward credit will be issued in the form of a refund. You can expect to see a refund email for the amount of your redemption, as well as this amount credited to your payment source within the next 10 days. </p>
+                    </div>
+                </div>
+<?php
+            }
+            else {
+?>
+                <div class="loyalty-success-container" style="<?php echo $_containerStyle;?>">
+                    <div class="loyalty-success-box">
+                        <p style="<?php echo $_fontStyle?>"><strong>You've earned <span style="<?php echo $_digitalStyle;?>"><?php echo $earnedPunches;?></span> punches!</strong></p>
+                        <p style="<?php echo $_fontStyle?>">Thanks for your participation in the <?php echo $_configData['store_name']?> Rewards Program. Come back soon, with every purchase you'll earn more valuable rewards.</p>
+                    </div>
+                </div>
+<?php                
+            }
+            
+        }
+        else {
+?>
+
+            <div class="loyalty-success-container" style="<?php echo $_containerStyle;?>">
+                <div class="loyalty-success-box">
+                    <p style="<?php echo $_fontStyle?>"><strong>You could have just earned <span style="<?php echo $_digitalStyle;?>"><?php echo $_loyaltyProgramConfig['rate'];?></span> punch(es).</strong></p>
+                    <p style="<?php echo $_fontStyle?>"> Join the <?php echo $_configData['store_name']?> Rewards Program and earn rewards every time you make a purchase! </p>
+                    <p style="<?php echo $_fontStyle?>">It's quick, easy and most of all rewarding!</p>
+                    <p style="<?php echo $_fontStyle?>"><a href="<?php echo $_enrollRedirectUrl; ?>" class="btn-enrollment" style="<?php echo $_buttonStyle;?>">Enroll Me Now!</a></p>
+                </div>
+            </div>
+<?php        
+        }
+        
+    }
+?>

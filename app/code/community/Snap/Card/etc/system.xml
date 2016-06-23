@@ -1,0 +1,360 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <clutch_rewards translate="label" module="snap_card">
+            <label>Clutch</label>
+            <sort_order>300</sort_order>
+        </clutch_rewards>
+    </tabs>
+    <sections>
+        <Snap translate="label">
+            <label>SNAP Settings</label>
+            <!--<tab>general</tab>-->
+            <tab>clutch_rewards</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>10000</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <settings translate="label">
+                    <label>SNAP API Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1000</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <production_mode_select translate="label">
+                            <label>API Production Mode</label>
+                            <comment>Choose 'Yes' to use API Production Mode, 'No' to use API Sandbox Mode</comment>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                        </production_mode_select>
+                        <api_key_input translate="label">
+                            <label>API Key</label>
+                            <comment>SNAP API Key</comment>
+                            <frontend_type>text</frontend_type>
+                            <validate>required-entry</validate>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </api_key_input>
+                        <api_secret_input translate="label">
+                            <label>API Secret</label>
+                            <comment>SNAP API Secret</comment>
+                            <frontend_type>text</frontend_type>
+                            <validate>required-entry</validate>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </api_secret_input>
+                        <brand_input translate="label">
+                            <label>Brand ID</label>
+                            <comment>SNAP API Brand ID</comment>
+                            <frontend_type>text</frontend_type>
+                            <validate>required-entry</validate>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </brand_input>
+                        <location_input translate="label">
+                            <label>Location ID</label>
+                            <comment>SNAP API Location ID</comment>
+                            <frontend_type>text</frontend_type>
+                            <validate>required-entry</validate>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </location_input>
+                        <terminal_input translate="label">
+                            <label>Terminal ID</label>
+                            <comment>SNAP API Terminal ID</comment>
+                            <validate>required-entry</validate>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </terminal_input>
+                        <employee_input translate="label">
+                            <label>Employee ID</label>
+                            <comment>SNAP API Employee ID</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </employee_input>
+                        <employee_password_input translate="label">
+                            <label>Employee Password</label>
+                            <comment>SNAP API Employee Password</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>8</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </employee_password_input>                        
+                    </fields>
+                </settings>
+                <loyalty_settings translate="label" type="group">
+                    <label>Loyalty Program Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10002</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <loyalty_program_type_select translate="label">
+                            <label>Loyalty Program Type</label>
+                            <comment>One of two ways (Points Based Program / Punch Based Program)</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>snap_card/system_config_source_programType</source_model>
+                            <validate>validate-select</validate>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>2</show_in_store>
+                        </loyalty_program_type_select>                        
+                        <point_based_loyalty_settings translate="label" type="group">
+                            <label>Points Based Program - Settings</label>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <comment>You can get all settings for Points Based Program from Portal. (Note: It won't modify the portal settings, but it should be same as portal.)</comment>
+                            <sort_order>2</sort_order>
+                            <depends><loyalty_program_type_select>point</loyalty_program_type_select></depends>
+                            <expanded>1</expanded>
+                            <fields>
+                                <reward_rate_input translate="label">
+                                    <label>Reward Rate</label>
+                                    <comment>Point(s) Per Dollar Spent</comment>
+                                    <frontend_type>text</frontend_type>
+                                    <!--<validate>required-entry validate-greater-than-zero</validate>-->
+                                    <sort_order>1</sort_order>
+                                    <show_in_default>1</show_in_default>
+                                    <show_in_website>1</show_in_website>
+                                    <show_in_store>1</show_in_store>
+                                </reward_rate_input>
+                                
+                                <points_threshold_input translate="label">
+                                    <label>Points Threshold</label>
+                                    <comment>When your customer's points balance reaches this threshold, their balance will be reset and then conversion result will be triggered.</comment>
+                                    <frontend_type>text</frontend_type>
+                                    <!--<validate>required-entry validate-greater-than-zero</validate>-->
+                                    <sort_order>2</sort_order>
+                                    <show_in_default>1</show_in_default>
+                                    <show_in_website>1</show_in_website>
+                                    <show_in_store>1</show_in_store>
+                                </points_threshold_input>
+                                
+                                <conversion_reward_amount_input translate="label">
+                                    <label>Conversion Reward Amount</label>
+                                    <comment></comment>
+                                    <frontend_type>text</frontend_type>
+                                    <!--<validate>required-entry validate-greater-than-zero</validate>-->
+                                    <sort_order>3</sort_order>
+                                    <show_in_default>1</show_in_default>
+                                    <show_in_website>1</show_in_website>
+                                    <show_in_store>1</show_in_store>
+                                </conversion_reward_amount_input>
+                                
+                            </fields>
+                        </point_based_loyalty_settings>
+                        
+                        
+                        <punch_based_loyalty_settings type="group" translate="label">
+                            <label>Punch Based Program - Settings</label>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <comment>You can get all settings for Punch Based Program from Portal. (Note: It won't modify the portal settings, but it should be same as portal)</comment>
+                            <sort_order>3</sort_order>
+                            <expanded>1</expanded>
+                            <fields>
+                                <reward_rate_input translate="label">
+                                    <label>Reward Rate</label>
+                                    <comment>Punch(es) Per Checkout</comment>
+                                    <frontend_type>text</frontend_type>
+                                    <!--<validate>required-entry validate-greater-than-zero</validate>-->
+                                    <sort_order>1</sort_order>
+                                    <show_in_default>1</show_in_default>
+                                    <show_in_website>1</show_in_website>
+                                    <show_in_store>1</show_in_store>
+                                </reward_rate_input>
+                                
+                                <points_threshold_input translate="label">
+                                    <label>Punches Threshold</label>
+                                    <comment>When your customer's punches balance reaches this threshold, their balance will be reset and then conversion result will be triggered.</comment>
+                                    <frontend_type>text</frontend_type>
+                                    <!--<validate>required-entry validate-greater-than-zero</validate>-->
+                                    <sort_order>2</sort_order>
+                                    <show_in_default>1</show_in_default>
+                                    <show_in_website>1</show_in_website>
+                                    <show_in_store>1</show_in_store>
+                                </points_threshold_input>
+                                
+                                <conversion_reward_amount_input translate="label">
+                                    <label>Conversion Reward Amount</label>
+                                    <comment></comment>
+                                    <frontend_type>text</frontend_type>
+                                    <!--<validate>required-entry validate-greater-than-zero</validate>-->
+                                    <sort_order>3</sort_order>
+                                    <show_in_default>1</show_in_default>
+                                    <show_in_website>1</show_in_website>
+                                    <show_in_store>1</show_in_store>
+                                </conversion_reward_amount_input>
+                                
+                            </fields>
+                        </punch_based_loyalty_settings>
+                        
+
+                        <cardsetid_input translate="label">
+                            <label>Card Set ID(s)</label>
+                            <comment>Loyalty Program Card Set IDs(comma separated). You can create the card sets on portal</comment>
+                            <frontend_type>text</frontend_type>
+                            <validate>required-entry</validate>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </cardsetid_input>
+                        <load_jquery_force_select translate="label">
+                            <label>Force loading jQuery</label>
+                            <comment>Clutch extension needs jQuery. In case the store loads jQuery as default, then choose "No". If you want to force loading jQuery, then choose "Yes". </comment>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>                            
+                        </load_jquery_force_select>                        
+                    </fields>
+                </loyalty_settings>
+                
+                <theme_settings translate="label" type="group">
+                    <label>Loyalty Program Theme Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <comment>This is default theme settings for loyalty program. Loyalty program section on checkout page will be affected by this default setting.</comment>
+                    <sort_order>10003</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>                    
+                    <fields>
+                        <name translate="label">
+                            <label>Name</label>
+                            <type>text</type>
+                            <comment>The name displayed for this program</comment>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </name>
+                        <width translate="label">
+                            <label>Widget Width</label>
+                            <type>text</type>
+                            <comment>The exact width in pixels or percent (i.e 500 for pixel, 100% for percent)</comment>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </width>
+                        <height translate="label">
+                            <label>Widget Height</label>
+                            <type>text</type>
+                            <comment>The exact height in pixels (i.e 300 for pixel, auto for default)</comment>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </height>
+                        <background_color translate="label">
+                            <label>Widget Background Color</label>
+                            <type>text</type>
+                            <frontend_class>color {required:false,hash:true}</frontend_class>
+                            <comment>Leave it blank if you want to use site default.</comment>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </background_color>
+                        
+                        <font_color translate="label">
+                            <label>Widget Font Color</label>
+                            <type>text</type>
+                            <frontend_class>color {required:false,hash:true}</frontend_class>
+                            <comment>Leave it blank if you want to use site default.</comment>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </font_color>
+                        
+                        <font_face translate="label">
+                            <label>Widget Font Face</label>
+                            <type>text</type>
+                            <comment>Leave it blank if you want to use site default.</comment>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </font_face>
+                        
+                        <button_bg_color translate="label">
+                            <label>Widget Button Background Color</label>
+                            <type>text</type>
+                            <frontend_class>color {required:false,hash:true}</frontend_class>
+                            <comment>Leave it blank if you want to use site default.</comment>                            
+                            <sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </button_bg_color>
+                        
+                        <button_font_color translate="label">
+                            <label>Widget Button Font Color</label>
+                            <type>text</type>
+                            <frontend_class>color {required:false,hash:true}</frontend_class>
+                            <comment>Leave it blank if you want to use site default.</comment>
+                            <sort_order>8</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </button_font_color>
+                        
+                        <dial_color translate="label">
+                            <label>Widget Dial Color</label>
+                            <type>text</type>
+                            <frontend_class>color {required:false,hash:true}</frontend_class>
+                            <comment>Leave it blank if you want to use site default.</comment>
+                            <sort_order>9</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </dial_color>
+                        
+                        <graph_color translate="label">
+                            <label>Widget Graph Color</label>
+                            <type>text</type>
+                            <frontend_class>color {required:false,hash:true}</frontend_class>
+                            <comment>Leave it blank if you want to use site default.</comment>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </graph_color>
+                        
+                    </fields>
+                </theme_settings>
+            </groups>
+        </Snap>
+    </sections>
+</config>

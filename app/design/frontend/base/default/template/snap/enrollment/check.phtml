@@ -1,0 +1,198 @@
+<?php
+    //This will be set in block
+    $_configData = $this->getResponse();
+    $_loyaltyProgramConfig = Mage::helper('snap_card')->getLoyaltyProgramConfig();
+    
+    
+    //Widget content style
+    $_containerStyle = ''; // Widget container style
+    $_fontStyle = ''; // Widget font style
+    $_digitalStyle = ''; // Widget digital style
+    $_buttonStyle = ''; //Enrollment button style
+    $_graphBgColor = '#66EE66'; //Enrollment Graph style
+    if ($_configData['width'] != '') {
+        $_containerStyle .= sprintf('width:%s;', $_configData['width']);
+    }
+    if ($_configData['height'] != '') {
+        $_containerStyle .= sprintf('height:%s;', $_configData['height']);
+    }
+    if ($_configData['background_color'] != '') {
+        $_containerStyle .= sprintf('background-color:%s;', $_configData['background_color']);
+    }
+    if ($_configData['font_face'] != '') {
+        $_containerStyle .= sprintf('font-family:%s;', $_configData['font_face']);
+        $_fontStyle .= sprintf('font-family:%s;', $_configData['font_face']);
+    }
+    if ($_configData['font_color'] != '') {
+        $_containerStyle .= sprintf('color:%s;', $_configData['font_color']);
+        $_fontStyle .= sprintf('color:%s;', $_configData['font_color']);
+    }
+    if ($_configData['dial_color'] != '') {
+        $_digitalStyle .= sprintf('color:%s;', $_configData['dial_color']);
+    }
+    
+    if ($_configData['button_bg_color'] != '') {
+        $_buttonStyle .= sprintf('background-color:%s;', $_configData['button_bg_color']);
+    }
+    if ($_configData['button_font_color'] != '') {
+        $_buttonStyle .= sprintf('color:%s;', $_configData['button_font_color']);
+    }
+    if ($_configData['graph_color'] != '') {
+        $_graphBgColor = $_configData['graph_color'];
+    }
+    
+    
+    
+    //Referrer URL
+    $_loginRedirectUrl = Mage::getUrl('customer/account/login', array('referer' => 
+        Mage::helper('core')->urlEncode(Mage::helper('core/url')->getCurrentUrl())
+    ));
+    
+    $_enrollRedirectUrl = Mage::getUrl('clutch/index/enroll', array('referer' => 
+        Mage::helper('core')->urlEncode(Mage::helper('core/url')->getCurrentUrl())
+    ));
+    
+    
+    if ($_loyaltyProgramConfig['type'] == Snap_Card_Model_Giftcard::LOYALTY_PROGRAM_TYPE_POINT) {
+
+        if ($_configData['widget_type'] == 'guest') {
+?>
+            <div class="loyalty-enroll-container" style="<?php echo $_containerStyle;?>">
+                <h4 class="loyalty-enroll-title"><?php echo $_configData['name']?></h4>
+                <div class="loyalty-enroll-box">
+                    <p style="<?php echo $_fontStyle?>"> Join the <?php echo $_configData['store_name']?> Rewards Program and earn rewards every time you make a purchase! </p>
+                    <p style="<?php echo $_fontStyle?>">It's simple, every time you spend <span style="<?php echo $_digitalStyle;?>"><?php echo $this->helper('core')->formatPrice($_loyaltyProgramConfig['threshold'] / $_loyaltyProgramConfig['rate'], false);?></span>, you get a <span style="<?php echo $_digitalStyle;?>"><?php echo $this->helper('core')->formatPrice($_loyaltyProgramConfig['amount'], false);?></span> reward.</p>
+                    <p style="<?php echo $_fontStyle?>"><a href="<?php echo $_loginRedirectUrl; ?>"> &gt; Sign in to your account and return here to enroll.</a></p>
+                </div>
+            </div>
+<?php 
+        }
+        else if ($_configData['widget_type'] == 'member') {
+            
+            $_balance = 0;
+            $_totalPoints = 0;
+            foreach ($_configData['card_collection'] as $cardData) {
+                $_balance += $cardData->getCashback();
+                $_totalPoints += $cardData->getPointBalance();
+            }   
+            
+?>
+            <div class="loyalty-enroll-container" style="<?php echo $_containerStyle;?>">
+                <h4 class="loyalty-enroll-title"><?php echo $_configData['name']?></h4>
+                <div class="loyalty-enroll-box">
+                    <div class="point-col point-graph-container">
+                        <div class="point-graph">
+                            <input class="knob" data-angleOffset=-125 data-angleArc=250 data-fgColor="<?php echo $_graphBgColor;?>" value="<?php echo $_totalPoints;?>" data-width="110" data-height="110" data-readOnly=true data-min="0" data-max="<?php echo $_loyaltyProgramConfig['threshold'];?>">
+                        </div>
+                        <div class="point-desc">
+                            <p style="<?php echo $_fontStyle?>"><span style="<?php echo $_digitalStyle;?>"><?php echo $_loyaltyProgramConfig['threshold'] - $_totalPoints;?></span> points until your next reward!</p>
+                        </div>
+                        <div class="clearer"></div>
+                    </div>
+                    <div class="desc-col">
+                        <p style="<?php echo $_fontStyle?>"><strong>Current Reward Balance: <span style="<?php echo $_digitalStyle;?>"><?php echo $this->helper('core')->formatPrice($_balance, false);?></span></strong></p>
+                        <p style="<?php echo $_fontStyle?>">Checkout today, earn more rewards, and redeem available rewards for savings!</p>
+                    </div>
+                    <div class="clearer"></div>
+                </div>
+            </div>
+<?php   
+            
+        }
+        else {
+?>
+            <div class="loyalty-enroll-container" style="<?php echo $_containerStyle;?>">
+                <h4 class="loyalty-enroll-title"><?php echo $_configData['name']?></h4>
+                <div class="loyalty-enroll-box">
+                    <div class="left-col">
+                        <p style="<?php echo $_fontStyle?>"> Join the <?php echo $_configData['store_name']?> Rewards Program and earn rewards every time you make a purchase! </p>
+                        <p style="<?php echo $_fontStyle?>">It's simple, every time you spend <span style="<?php echo $_digitalStyle;?>"><?php echo $this->helper('core')->formatPrice($_loyaltyProgramConfig['threshold'] / $_loyaltyProgramConfig['rate'], false);?></span>, you get a <span style="<?php echo $_digitalStyle;?>"><?php echo $this->helper('core')->formatPrice($_loyaltyProgramConfig['amount'], false);?></span> reward.</p>
+                    </div>
+                    <div class="right-col">
+                        <a href="<?php echo $_enrollRedirectUrl;?>" class="btn-enrollment" style="<?php echo $_buttonStyle;?>">Enroll Me Now!</a>
+                    </div>
+                    <div class="clearer"></div>
+                </div>
+            </div>
+<?php        
+        }
+    }
+    else if ($_loyaltyProgramConfig['type'] == Snap_Card_Model_Giftcard::LOYALTY_PROGRAM_TYPE_PUNCH) {
+        
+        if ($_configData['widget_type'] == 'guest') {
+?>
+            <div class="loyalty-enroll-container" style="<?php echo $_containerStyle;?>">
+                <h4 class="loyalty-enroll-title"><?php echo $_configData['name']?></h4>
+                <div class="loyalty-enroll-box">
+                    <p style="<?php echo $_fontStyle?>"> Join the <?php echo $_configData['store_name']?> Rewards Program and earn rewards every time you make a purchase! </p>
+                    <p style="<?php echo $_fontStyle?>">
+                        It's simple, every time your purchase is complete, you get 
+                        <span style="<?php echo $_digitalStyle;?>"><?php echo $_loyaltyProgramConfig['rate'];?></span> punch(es).
+                        And you get reward with <span style="<?php echo $_digitalStyle;?>"><?php echo $this->helper('core')->formatPrice($_loyaltyProgramConfig['amount'], false);?></span> 
+                        cashback after <span style="<?php echo $_digitalStyle;?>"><?php echo $_loyaltyProgramConfig['threshold'];?></span> punch(es).
+                    </p>
+                    <p style="<?php echo $_fontStyle?>"><a href="<?php echo $_loginRedirectUrl; ?>"> &gt; Sign in to your account and return here to enroll.</a></p>
+                </div>
+            </div>
+<?php 
+        }
+        else if ($_configData['widget_type'] == 'member') {
+            
+            $_balance = 0;
+            $_totalPunches = 0;
+            foreach ($_configData['card_collection'] as $cardData) {
+                $_balance += $cardData->getCashback();
+                $_totalPunches += $cardData->getPunchBalance();
+            }   
+            
+?>
+            <div class="loyalty-enroll-container" style="<?php echo $_containerStyle;?>">
+                <h4 class="loyalty-enroll-title"><?php echo $_configData['name']?></h4>
+                <div class="loyalty-enroll-box">
+                    <div class="point-col point-graph-container">
+                        <div class="punch-graph">
+                            <div class="punch-raty-box" data-number="<?php echo $_loyaltyProgramConfig['threshold']?>" data-score="<?php echo $_totalPunches;?>"></div>
+                        </div>
+                        <div class="punch-desc">
+                            <p style="<?php echo $_fontStyle?>"><span style="<?php echo $_digitalStyle;?>"><?php echo $_loyaltyProgramConfig['threshold'] - $_totalPunches;?></span> more purchases until your next reward!</p>
+                        </div>
+                        <div class="clearer"></div>
+                    </div>
+                    <div class="desc-col">
+                        <p style="<?php echo $_fontStyle?>"><strong>Current Reward Balance: <span style="<?php echo $_digitalStyle;?>"><?php echo $this->helper('core')->formatPrice($_balance, false);?></span></strong></p>
+                        <p style="<?php echo $_fontStyle?>">Checkout today, earn more rewards, and redeem available rewards for savings!</p>
+                    </div>
+                    <div class="clearer"></div>
+                </div>
+            </div>
+            <script type="text/javascript">
+                jQuery.fn.raty.defaults.path = '<?php echo  Mage::getBaseUrl('js');?>snap/raty';
+            </script>
+<?php   
+            
+        }
+        else {
+?>
+            <div class="loyalty-enroll-container" style="<?php echo $_containerStyle;?>">
+                <h4 class="loyalty-enroll-title"><?php echo $_configData['name']?></h4>
+                <div class="loyalty-enroll-box">
+                    <div class="left-col">
+                        <p style="<?php echo $_fontStyle?>"> Join the <?php echo $_configData['store_name']?> Rewards Program and earn rewards every time you make a purchase! </p>
+                        <p style="<?php echo $_fontStyle?>">
+                            It's simple, every time your purchase is complete, you get 
+                            <span style="<?php echo $_digitalStyle;?>"><?php echo $_loyaltyProgramConfig['rate'];?></span> punch(es).
+                            And you get reward with <span style="<?php echo $_digitalStyle;?>"><?php echo $this->helper('core')->formatPrice($_loyaltyProgramConfig['amount'], false);?></span> 
+                            cashback after <span style="<?php echo $_digitalStyle;?>"><?php echo $_loyaltyProgramConfig['threshold'];?></span> punch(es).
+                        </p>
+                    </div>
+                    <div class="right-col">
+                        <a href="<?php echo $_enrollRedirectUrl;?>" class="btn-enrollment" style="<?php echo $_buttonStyle;?>">Enroll Me Now!</a>
+                    </div>
+                    <div class="clearer"></div>
+                </div>
+            </div>
+<?php        
+        }
+        
+    }
+?>

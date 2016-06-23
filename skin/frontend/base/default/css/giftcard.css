@@ -1,0 +1,242 @@
+.buttons-set button.button-giftcard {
+    float: left;
+    margin-bottom: 5px;
+}
+button.button-giftcard {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border: 0 none;
+    cursor: pointer;
+    margin: 0;
+    overflow: visible;
+    padding: 0;
+    width: auto;
+}
+button.button-giftcard span {
+    background: none repeat scroll 0 0 #F18200;
+    color: #FFFFFF;
+    display: block;
+    font: bold 12px/19px Arial,Helvetica,sans-serif;
+    height: 19px;
+    padding: 0 8px;
+    text-align: center;
+    white-space: nowrap;
+}
+button-giftcard.button span span {
+    border: 0 none;
+    padding: 0;
+}
+button.button-giftcard span {
+    background: none repeat scroll 0 0 #F18200;
+    color: #FFFFFF;
+    display: block;
+    font: bold 12px/19px Arial,Helvetica,sans-serif;
+    height: 19px;
+    padding: 0 8px;
+    text-align: center;
+    white-space: nowrap;
+}
+.giftcard-set {
+    border-top: medium none;
+    border-bottom: 1px solid #E4E4E4;
+}
+.gift-cards-list {
+    margin-top: 10px;
+}
+.gift-card li {
+    font-weight: bold;
+    color: #00CC00;
+}
+.gift-card-delete {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right:3px;
+    cursor: pointer;
+}
+.gift-card-edit {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right:3px;
+    cursor: pointer;
+}
+.gift-card-save {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right:3px;
+    cursor: pointer;
+}
+.gift-card-amount {
+    color: #1E7EC8;    
+}
+
+/* Enrollment & Balance check*/
+.loyalty-enroll-container {
+    padding: 10px;
+    border: 1px solid #CCC;
+    clear: both;
+}
+.loyalty-enroll-container p {
+    margin-bottom: 10px;
+}
+.loyalty-enroll-container .loyalty-enroll-title {
+    margin: 5px 5px 20px 5px;
+    background:#777;
+    padding: 5px 20px;
+    color: #FFF;
+}
+.loyalty-enroll-container .loyalty-enroll-box {
+    padding: 5px 10px;
+}
+.loyalty-enroll-container .loyalty-enroll-box .left-col {
+    min-width: 200px;
+    width: calc(100% - 160px);
+    float: left;
+}
+.loyalty-enroll-container .loyalty-enroll-box .right-col {
+    width: 140px;
+    float: right;
+}
+
+.loyalty-enroll-container .loyalty-enroll-box .point-col {
+    width: 280px;
+    float: left;
+}
+.loyalty-enroll-container .loyalty-enroll-box .desc-col {
+    min-width: 200px;
+    width: calc(100% - 300px);
+    float: right;
+}
+
+.loyalty-enroll-container .btn-enrollment {
+    padding: 5px 15px;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+    text-align: center;
+}
+.loyalty-enroll-container .btn-enrollment:hover {
+    text-decoration: none;
+    -webkit-box-shadow: 0 0px 4px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 0 0px 4px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0px 4px rgba(0, 0, 0, 0.5);
+}
+.clearer {
+    clear: both;
+}
+.point-graph-container {
+    width: 280px;
+}
+.point-graph-container .point-graph {
+    width: 145px;
+    float: left;
+}
+.point-graph-container .point-desc {
+    float: right;
+    width: 125px;
+}
+
+.point-graph-container .punch-graph {
+    width: 126px;
+    float: left;
+}
+.point-graph-container .punch-desc {
+    float: right;
+    width: 145px;
+}
+
+
+.punch-raty-box img{
+    display: inline-block !important;
+}
+
+
+/*Loyalty cart container*/
+.loyalty-cart-container {
+    padding: 10px;
+    border: 1px solid #CCC;
+    clear: both;
+    margin-bottom: 20px;
+}
+.loyalty-cart-container .loyalty-cart-title {
+    margin-bottom: 0.5em;
+}
+.loyalty-cart-container .loyalty-cart-box {
+    
+}
+.loyalty-cart-container .loyalty-cart-box p {
+    margin-bottom: 10px;
+}
+.loyalty-cart-container .loyalty-cart-box .desc-col {
+    
+}
+.loyalty-cart-container .btn-enrollment,
+.clutch-loyalty-summary .btn-enrollment,
+.loyalty-success-box .btn-enrollment {
+    padding: 5px 15px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    text-align: center;
+}
+.loyalty-cart-container .btn-enrollment:hover,
+.clutch-loyalty-summary .btn-enrollment:hover,
+.loyalty-success-box .btn-enrollment:hover {
+    text-decoration: none;
+    -webkit-box-shadow: 0 0px 4px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 0 0px 4px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0px 4px rgba(0, 0, 0, 0.5);
+}
+
+.loyalty-cart-container .point-graph-container {
+    width: 100%;
+}
+.loyalty-cart-container .point-graph-container .point-desc {
+    width: calc(100% - 145px);    
+}
+#loyalty-program-form input{
+    width: 180px;
+    margin-right: 5px;
+}
+#loyalty-program-form button {
+    padding: 3px 10px;
+    vertical-align: middle;
+}
+
+
+/**
+* Cart Loyalty summary
+*/
+.clutch-loyalty-summary {
+    padding: 10px;
+    border: 1px solid #CCC;
+    clear: both;
+    margin-bottom: 20px;
+    text-align: left;    
+    
+}
+.clutch-loyalty-summary .node-block {
+    margin-bottom: 10px;
+}
+
+#give-cards-form #snap_card {
+    width: 60%;
+}
+#give-cards-form #snap_card_pin {
+    width: 30%;
+}
+
+/**
+* Success page
+*/
+.loyalty-success-container {
+    border: 1px solid #CCC;
+    max-width: 625px;
+    margin: 10px auto;
+    
+}
+.loyalty-success-box {
+    padding: 10px 20px;
+    text-align: left;
+}
+.loyalty-success-box p {
+    margin-bottom: 8px;
+}
